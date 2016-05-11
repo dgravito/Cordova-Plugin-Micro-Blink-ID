@@ -117,22 +117,6 @@
     // Add UKDL Recognizer setting to a list of used recognizer settings
     [settings.scanSettings addRecognizerSettings:ukdlRecognizerSettings];
 
-
-    /*
-    
-    // To specify we want to perform MRTD (machine readable travel document) recognition, initialize the MRTD recognizer settings
-    PPMrtdRecognizerSettings *mrtdRecognizerSettings = [[PPMrtdRecognizerSettings alloc] init];
-    
-    // Add MRTD Recognizer setting to a list of used recognizer settings
-    [settings.scanSettings addRecognizerSettings:mrtdRecognizerSettings];
-    
-    // To specify we want to perform USDL (US Driver's license) recognition, initialize the USDL recognizer settings
-    PPUsdlRecognizerSettings *usdlRecognizerSettings = [[PPUsdlRecognizerSettings alloc] init];
-    
-    // Add USDL Recognizer setting to a list of used recognizer settings
-    [settings.scanSettings addRecognizerSettings:usdlRecognizerSettings];
-    
-    */
     
     /** 4. Initialize the Scanning Coordinator object */
     
@@ -187,8 +171,8 @@
         if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
             /** UkDL was detected */
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
-            title = @"UKDL";
-            message = [ukdlResult description];
+            //title = @"UKDL";
+            //message = [ukdlResult description];
             
             
              NSDictionary *jsonObj = [ [NSDictionary alloc]
@@ -207,6 +191,7 @@
                                                                options:0 // Pass 0 if you don't care about the readability of the generated string
                                                                  error:&error];
             NSString *jsonString = @"";
+            
             if (! jsonData) {
                 NSLog(@"Got an error: %@", error);
             } else {
@@ -214,66 +199,10 @@
             }
             
             __block CDVPluginResult* pluginResult = nil;
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:jsonObj];
-            //pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
-            
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
-        }
-        /*if ([result isKindOfClass:[PPMrtdRecognizerResult class]]) {
-            PPMrtdRecognizerResult* mrtdResult = (PPMrtdRecognizerResult*)result;
-            title = @"MRTD";
-            message = [mrtdResult description];
-            
-            NSDictionary *jsonObj = [ [NSDictionary alloc]
-                                     initWithObjectsAndKeys :
-                                     [mrtdResult isParsed] ? @"true" : @"false", @"isParsed",
-                                     [mrtdResult issuer], @"issuer",
-                                     [mrtdResult documentNumber], @"documentNumber",
-                                     [mrtdResult documentCode], @"documentCode",
-                                     [mrtdResult dateOfExpiry], @"dateOfExpiry",
-                                     [mrtdResult primaryId], @"primaryId",
-                                     [mrtdResult secondaryId], @"secondaryId",
-                                     [mrtdResult dateOfBirth], @"dateOfBirth",
-                                     [mrtdResult nationality], @"nationality",
-                                     [mrtdResult sex], @"sex",
-                                     [mrtdResult opt1], @"opt1",
-                                     [mrtdResult opt2], @"opt2",
-                                     [mrtdResult mrzText], @"mrzText",
-                                     nil
-                                     ];
-            
-            NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObj
-                                                               options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
-                                                                 error:&error];
-            NSString *jsonString = @"";
-            if (! jsonData) {
-                NSLog(@"Got an error: %@", error);
-            } else {
-                jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            }
-            
-            
-            __block CDVPluginResult* pluginResult = nil;
-            //pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:jsonObj];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonString];
             
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
-            
         }
-        if ([result isKindOfClass:[PPUsdlRecognizerResult class]]) {
-            PPUsdlRecognizerResult* usdlResult = (PPUsdlRecognizerResult*)result;
-            title = @"USDL";
-            message = [usdlResult description];
-
-            
-            // TODO
-            __block CDVPluginResult* pluginResult = nil;
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
-            
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
-            
-        }*/
     };
     
     // present the alert view with scanned results
