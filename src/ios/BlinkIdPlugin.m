@@ -11,47 +11,7 @@
 @implementation BlinkIdPlugin
 
 - (void) readCardId:(CDVInvokedUrlCommand*)command {
-    self.commandHelper = command;
-    CDVPluginResult* pluginResult;
-    
-    /** Read the License Key */
-    NSString* licenseKey;
-    
-    if([command.arguments count] && [command.arguments count] > 0)
-        licenseKey = [command.arguments objectAtIndex:0];
-        
-    /** Check there is a license key */
-    if (!licenseKey) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Is mandatory a license key to use the this plugin"];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-        return;
-    }
-    
-    /** Set the license key to use when the BlinkID framework was launched */
-    self.mLicenseKey = licenseKey;
-    
-    /** Instantiate the scanning coordinator */
-    NSError *error;
-    PPCoordinator *coordinator = [self coordinatorWithError:&error];
-    
-    /** If scanning isn't supported, present an error */
-    if (coordinator == nil) {
-        NSString *messageString = [error localizedDescription];
-        [[[UIAlertView alloc] initWithTitle:@"Warning"
-                                    message:messageString
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil, nil] show];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:messageString];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-        return;
-    }
-    
-    /** Allocate and present the scanning view controller */
-    UIViewController<PPScanningViewController>* scanningViewController = [coordinator cameraViewControllerWithDelegate:self];
-    
-    /** You can use other presentation methods as well */
-    [[self currentApplicationViewController] presentViewController:scanningViewController animated:YES completion:nil];
+    //TO DO
 }
 
 - (void) scannDocument:(CDVInvokedUrlCommand*)command {
@@ -157,6 +117,8 @@
     // Add UKDL Recognizer setting to a list of used recognizer settings
     [settings.scanSettings addRecognizerSettings:UkdlRecognizerSettings];
     
+    /*
+    
     // To specify we want to perform MRTD (machine readable travel document) recognition, initialize the MRTD recognizer settings
     PPMrtdRecognizerSettings *mrtdRecognizerSettings = [[PPMrtdRecognizerSettings alloc] init];
     
@@ -169,6 +131,7 @@
     // Add USDL Recognizer setting to a list of used recognizer settings
     [settings.scanSettings addRecognizerSettings:usdlRecognizerSettings];
     
+    */
     
     /** 4. Initialize the Scanning Coordinator object */
     
@@ -249,14 +212,12 @@
                 jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
             }
             
-            
-            
             __block CDVPluginResult* pluginResult = nil;
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
             
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
         }
-        if ([result isKindOfClass:[PPMrtdRecognizerResult class]]) {
+        /*if ([result isKindOfClass:[PPMrtdRecognizerResult class]]) {
             PPMrtdRecognizerResult* mrtdResult = (PPMrtdRecognizerResult*)result;
             title = @"MRTD";
             message = [mrtdResult description];
@@ -310,7 +271,7 @@
             
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
             
-        }
+        }*/
     };
     
     // present the alert view with scanned results
