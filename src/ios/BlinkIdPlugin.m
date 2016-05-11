@@ -226,6 +226,31 @@
             title = @"UKDL";
             message = [ukdlResult description];
             
+            
+             NSDictionary *jsonObj = [ [NSDictionary alloc]
+                                     initWithObjectsAndKeys :
+                                     [ukdlResult ownerFirstName], @"ownerFirstName",
+                                     [ukdlResult ownerLastName], @"ownerLastName",
+                                     [ukdlResult ownerAdress], @"ownerAdress",
+                                     [ukdlResult ownerBirthData], @"ownerBirthData",
+                                     [ukdlResult documentIssueDate], @"documentIssueDate",
+                                     [ukdlResult documentExpiryDate], @"documentExpiryDate",
+                                     [ukdlResult driverNumber], @"driverNumber"
+                                     ];
+            
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObj
+                                                               options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                                 error:&error];
+            NSString *jsonString = @"";
+            if (! jsonData) {
+                NSLog(@"Got an error: %@", error);
+            } else {
+                jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            }
+            
+            
+            
             __block CDVPluginResult* pluginResult = nil;
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
             
