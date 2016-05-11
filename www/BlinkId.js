@@ -10,7 +10,7 @@ exports.readCardId = function (successCallback, errorCallback, licenseKey) {
     cordova.exec(successCallback, errorCallback, "BlinkIdPlugin", "readCardId", [licenseKey]);
 };
 
-exports.scannDocument = function (successCallback, errorCallback) {
-   // cordova.exec(successCallback, errorCallback, "BlinkIdPlugin", "scannDocument", []);
-   alert ('Comming soon!');
+exports.scannDocument = function (successCallback, errorCallback, licenseKey) {
+   cordova.exec(successCallback, errorCallback, "BlinkIdPlugin", "scannDocument", [licenseKey]);
+   //alert ('Comming soon!');
 };
