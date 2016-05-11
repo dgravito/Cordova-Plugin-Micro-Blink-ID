@@ -152,10 +152,10 @@
      */
     
     // To specify we want to perform EUDL recognition, initialize the MRTD recognizer settings
-    PPEudlRecognizerSettings *EudlRecognizerSettings = [[PPEudlRecognizerSettings alloc] init];
+    //PPEudlRecognizerSettings *EudlRecognizerSettings = [[PPEudlRecognizerSettings alloc] init];
     
     // Add EUDL Recognizer setting to a list of used recognizer settings
-    [settings.scanSettings addRecognizerSettings:EudlRecognizerSettings];
+    //[settings.scanSettings addRecognizerSettings:EudlRecognizerSettings];
     
     // To specify we want to perform MRTD (machine readable travel document) recognition, initialize the MRTD recognizer settings
     PPMrtdRecognizerSettings *mrtdRecognizerSettings = [[PPMrtdRecognizerSettings alloc] init];
@@ -220,6 +220,17 @@
     // Collect data from the result
     for (PPRecognizerResult* result in results) {
         
+        if ([result isKindOfClass:[PPEudlRecognizerResult class]]) {
+            /** EUDL was detected */
+            PPEudlRecognizerResult* eudlResult = (PPEudlRecognizerResult*)result;
+            title = @"EUDL";
+            message = [eudlResult description];
+            
+            __block CDVPluginResult* pluginResult = nil;
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
+            
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
+        }
         if ([result isKindOfClass:[PPMrtdRecognizerResult class]]) {
             PPMrtdRecognizerResult* mrtdResult = (PPMrtdRecognizerResult*)result;
             title = @"MRTD";
