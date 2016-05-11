@@ -193,7 +193,6 @@
             
              NSDictionary *jsonObj = [ [NSDictionary alloc]
                                      initWithObjectsAndKeys :
-                                     [ukdlResult ownerFirstName]
                                      [ukdlResult ownerFirstName], @"ownerFirstName",
                                      [ukdlResult ownerLastName], @"ownerLastName",
                                      [ukdlResult ownerAdress], @"ownerAdress",
