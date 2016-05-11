@@ -55,7 +55,47 @@
 }
 
 - (void) scannDocument:(CDVInvokedUrlCommand*)command {
-    /** TO BE DEVELOPMENT */
+    self.commandHelper = command;
+    CDVPluginResult* pluginResult;
+    
+    /** Read the License Key */
+    NSString* licenseKey;
+    
+    if([command.arguments count] && [command.arguments count] > 0)
+        licenseKey = [command.arguments objectAtIndex:0];
+        
+    /** Check there is a license key */
+    if (!licenseKey) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Is mandatory a license key to use the this plugin"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        return;
+    }
+    
+    /** Set the license key to use when the BlinkID framework was launched */
+    self.mLicenseKey = licenseKey;
+    
+    /** Instantiate the scanning coordinator */
+    NSError *error;
+    PPCoordinator *coordinator = [self coordinatorWithError:&error];
+    
+    /** If scanning isn't supported, present an error */
+    if (coordinator == nil) {
+        NSString *messageString = [error localizedDescription];
+        [[[UIAlertView alloc] initWithTitle:@"Warning"
+                                    message:messageString
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:messageString];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        return;
+    }
+    
+    /** Allocate and present the scanning view controller */
+    UIViewController<PPScanningViewController>* scanningViewController = [coordinator cameraViewControllerWithDelegate:self];
+    
+    /** You can use other presentation methods as well */
+    [[self currentApplicationViewController] presentViewController:scanningViewController animated:YES completion:nil];
 }
 
 /**
@@ -110,6 +150,12 @@
      * 3. Set up what is being scanned. See detailed guides for specific use cases.
      * Here's an example for initializing MRTD and USDL scanning
      */
+    
+    // To specify we want to perform EUDL recognition, initialize the MRTD recognizer settings
+    PPEudlRecognizerSettings *EudlRecognizerSettings = [[PPEudlRecognizerSettings alloc] init];
+    
+    // Add EUDL Recognizer setting to a list of used recognizer settings
+    [settings.scanSettings addRecognizerSettings:EudlRecognizerSettings];
     
     // To specify we want to perform MRTD (machine readable travel document) recognition, initialize the MRTD recognizer settings
     PPMrtdRecognizerSettings *mrtdRecognizerSettings = [[PPMrtdRecognizerSettings alloc] init];
