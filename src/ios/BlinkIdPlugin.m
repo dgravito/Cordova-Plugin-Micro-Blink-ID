@@ -111,12 +111,13 @@
      * Here's an example for initializing MRTD and USDL scanning
      */
     
-    // To specify we want to perform UKDL recognition, initialize the UKDL recognizer settings
-    PPUkdlRecognizerSettings *UkdlRecognizerSettings = [[PPUkdlRecognizerSettings alloc] init];
-    
+    // To specify we want to perform UKDL (UK Driving license) recognition, initialize the UKDL recognizer settings
+    PPUkdlRecognizerSettings *ukdlRecognizerSettings = [[PPUkdlRecognizerSettings alloc] init];
+
     // Add UKDL Recognizer setting to a list of used recognizer settings
-    [settings.scanSettings addRecognizerSettings:UkdlRecognizerSettings];
-    
+    [settings.scanSettings addRecognizerSettings:ukdlRecognizerSettings];
+
+
     /*
     
     // To specify we want to perform MRTD (machine readable travel document) recognition, initialize the MRTD recognizer settings
@@ -192,6 +193,7 @@
             
              NSDictionary *jsonObj = [ [NSDictionary alloc]
                                      initWithObjectsAndKeys :
+                                     [ukdlResult ownerFirstName]
                                      [ukdlResult ownerFirstName], @"ownerFirstName",
                                      [ukdlResult ownerLastName], @"ownerLastName",
                                      [ukdlResult ownerAdress], @"ownerAdress",
@@ -213,7 +215,8 @@
             }
             
             __block CDVPluginResult* pluginResult = nil;
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:jsonObj];
+            //pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
             
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
         }
