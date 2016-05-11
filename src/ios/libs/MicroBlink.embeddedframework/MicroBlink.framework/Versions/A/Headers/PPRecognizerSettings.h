@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PPMicroBlinkDefines.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 struct RecognizerSettingsImpl;
 typedef struct RecognizerSettingsImpl RecognizerSettingsImpl;
@@ -18,11 +21,11 @@ typedef struct RecognizerSettingsImpl RecognizerSettingsImpl;
  *
  * This class is common superclass for each of the Recognizer settings,
  */
-@interface PPRecognizerSettings : NSObject <NSCopying>
+PP_CLASS_AVAILABLE_IOS(6.0) @interface PPRecognizerSettings : NSObject <NSCopying>
 
-@property (nonatomic, readonly, assign) RecognizerSettingsImpl* settings;
+@property (nonatomic, readonly, assign) RecognizerSettingsImpl *settings;
 
-- (instancetype)initWithSettings:(RecognizerSettingsImpl*)settings;
+- (instancetype)initWithSettings:(RecognizerSettingsImpl *)settings;
 
 /**
  * Property which determines if the recognizer is enabled
@@ -39,3 +42,5 @@ typedef struct RecognizerSettingsImpl RecognizerSettingsImpl;
 - (BOOL)isEnabled;
 
 @end
+
+NS_ASSUME_NONNULL_END
