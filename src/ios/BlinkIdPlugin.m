@@ -203,7 +203,7 @@
             
             NSError *error;
             NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObj
-                                                               options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                               options:0 // Pass 0 if you don't care about the readability of the generated string
                                                                  error:&error];
             NSString *jsonString = @"";
             if (! jsonData) {
