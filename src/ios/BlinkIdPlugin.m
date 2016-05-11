@@ -179,7 +179,7 @@
                                      initWithObjectsAndKeys :
                                      [ukdlResult ownerFirstName], @"ownerFirstName",
                                      [ukdlResult ownerLastName], @"ownerLastName",
-                                     [ukdlResult ownerAdress], @"ownerAdress",
+                                     [ukdlResult ownerAddress], @"ownerAddress",
                                      [ukdlResult ownerBirthData], @"ownerBirthData",
                                      [ukdlResult documentIssueDate], @"documentIssueDate",
                                      [ukdlResult documentExpiryDate], @"documentExpiryDate",
