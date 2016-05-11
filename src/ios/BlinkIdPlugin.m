@@ -112,10 +112,12 @@
      */
     
     // To specify we want to perform UKDL (UK Driving license) recognition, initialize the UKDL recognizer settings
-    PPUkdlRecognizerSettings *ukdlRecognizerSettings = [[PPUkdlRecognizerSettings alloc] init];
+    //PPUkdlRecognizerSettings *ukdlRecognizerSettings = [[PPUkdlRecognizerSettings alloc] init];
+    
+    [settings.scanSettings addRecognizerSettings:[[PPUkdlRecognizerSettings alloc] init]];
 
     // Add UKDL Recognizer setting to a list of used recognizer settings
-    [settings.scanSettings addRecognizerSettings:ukdlRecognizerSettings];
+    //[settings.scanSettings addRecognizerSettings:ukdlRecognizerSettings];
 
     
     /** 4. Initialize the Scanning Coordinator object */
