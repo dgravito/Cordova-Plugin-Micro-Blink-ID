@@ -116,7 +116,7 @@
     
     [settings.scanSettings addRecognizerSettings:[[PPUkdlRecognizerSettings alloc] init]];
     
-    [settings.scanSettings addRecognizerSettings:[[PPEudlRecognizerSettings alloc] init]];
+    //[settings.scanSettings addRecognizerSettings:[[PPEudlRecognizerSettings alloc] init]];
 
     // Add UKDL Recognizer setting to a list of used recognizer settings
     //[settings.scanSettings addRecognizerSettings:ukdlRecognizerSettings];
