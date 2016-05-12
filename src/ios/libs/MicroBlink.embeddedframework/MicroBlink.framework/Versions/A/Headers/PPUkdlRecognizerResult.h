@@ -1,5 +1,5 @@
 //
-//  PPUkdlRecognizerResult.h
+//  PPEudlRecognizerResult.h
 //  BlinkIDFramework
 //
 //  Created by Jura on 13/04/15.
@@ -11,7 +11,7 @@
 /**
  * Class representing result of scanning of UK Driver's licenses
  */
-@interface PPUkdlRecognizerResult : PPRecognizerResult
+PP_CLASS_AVAILABLE_IOS(6.0) @interface PPUkdlRecognizerResult : PPRecognizerResult
 
 /**
  * First name of the owner of the DL card
@@ -26,13 +26,6 @@
  *  @return owner last name
  */
 - (NSString *)ownerLastName;
-
-/**
- * Addres the owner of the DL card
- *
- *  @return address
- */
-- (NSString *)ownerAddress;
 
 /**
  * Birth data of the owner
@@ -56,10 +49,31 @@
 - (NSString *)documentExpiryDate;
 
 /**
+ * Issuing authority of the document
+ *
+ *  @return issuing authority
+ */
+- (NSString *)documentIssuingAuthority;
+
+/**
+ * Personal number
+ *
+ *  @return personal number
+ */
+- (NSString *)personalNumber;
+
+/**
  * Driver number
  *
  *  @return driver number
  */
 - (NSString *)driverNumber;
+
+/**
+ * Addres the owner of the DL card
+ *
+ *  @return address
+ */
+- (NSString *)ownerAddress;
 
 @end
