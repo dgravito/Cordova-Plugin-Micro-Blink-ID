@@ -175,13 +175,6 @@
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
             title = @"UKDL";
             message = [ukdlResult description];
-         
-         
-            [[[UIAlertView alloc] initWithTitle:@"Warning"
-                                        message:message
-                                       delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil, nil] show];
                           
         __block CDVPluginResult* pluginResult = nil;                  
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:message];
