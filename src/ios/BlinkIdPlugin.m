@@ -174,25 +174,28 @@
     
         //if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
             /** UkDL was detected */
-            PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
+            //PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
             //title = @"UKDL";
             //message = [ukdlResult description];
+            
         if ([result isKindOfClass:[PPUsdlRecognizerResult class]]) {
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
             title = @"UKDL";
             message = [ukdlResult description];
+         
+         
+        [[[UIAlertView alloc] initWithTitle:@"Warning"
+                                    message:message
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+                          
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:message];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+         
+         
          }
         };
-        
-        // present the alert view with scanned results
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
-        }
-        
-        // dismiss the scanning view controller when user presses OK.
-        - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
             
              /*
              NSDictionary *jsonObj = [ [NSDictionary alloc]
