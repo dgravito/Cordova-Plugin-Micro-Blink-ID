@@ -171,17 +171,21 @@
     
     // Collect data from the result
     for (PPRecognizerResult* result in results) {
-        if ([result isKindOfClass:[PPUsdlRecognizerResult class]]) {
+        
+        if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
             title = @"UKDL";
             message = [ukdlResult description];
-                          
-        __block CDVPluginResult* pluginResult = nil;                  
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:message];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
-         }
-        };
+            
+            // TODO
+            __block CDVPluginResult* pluginResult = nil;
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
+            
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
+            
+        }
+    };
     
     // present the alert view with scanned results
    // UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
