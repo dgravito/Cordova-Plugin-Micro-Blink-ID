@@ -177,18 +177,10 @@
             title = @"UKDL";
             message = [ukdlResult ownerFirstName];
     };
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles: nil];
 
-    [alertView show];
-    
     // present the alert view with scanned results
-   // UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    //[alertView show];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
     //[[self currentApplicationViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
