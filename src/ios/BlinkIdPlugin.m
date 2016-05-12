@@ -177,8 +177,24 @@
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
             //title = @"UKDL";
             //message = [ukdlResult description];
+        if ([result isKindOfClass:[PPUsdlRecognizerResult class]]) {
+            PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
+            title = @"UKDL";
+            message = [ukdlResult description];
+         }
+        };
+        
+        // present the alert view with scanned results
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+        }
+        
+        // dismiss the scanning view controller when user presses OK.
+        - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
             
-            
+             /*
              NSDictionary *jsonObj = [ [NSDictionary alloc]
                                      initWithObjectsAndKeys :
                                      [ukdlResult ownerFirstName], @"ownerFirstName",
@@ -206,8 +222,8 @@
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonString];
             
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
-       // }
-    };
+            */
+       //}
     
     // present the alert view with scanned results
    // UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
