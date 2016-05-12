@@ -171,62 +171,24 @@
     
     // Collect data from the result
     for (PPRecognizerResult* result in results) {
-    
-        //if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
-            /** UkDL was detected */
-            //PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
-            //title = @"UKDL";
-            //message = [ukdlResult description];
-            
         if ([result isKindOfClass:[PPUsdlRecognizerResult class]]) {
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
             title = @"UKDL";
             message = [ukdlResult description];
          
          
-        [[[UIAlertView alloc] initWithTitle:@"Warning"
-                                    message:message
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil, nil] show];
+            [[[UIAlertView alloc] initWithTitle:@"Warning"
+                                        message:message
+                                       delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil, nil] show];
                           
+        __block CDVPluginResult* pluginResult = nil;                  
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:message];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-         
-         
+
          }
         };
-            
-             /*
-             NSDictionary *jsonObj = [ [NSDictionary alloc]
-                                     initWithObjectsAndKeys :
-                                     [ukdlResult ownerFirstName], @"ownerFirstName",
-                                     [ukdlResult ownerLastName], @"ownerLastName",
-                                     [ukdlResult ownerAddress], @"ownerAddress",
-                                     [ukdlResult ownerBirthData], @"ownerBirthData",
-                                     [ukdlResult documentIssueDate], @"documentIssueDate",
-                                     [ukdlResult documentExpiryDate], @"documentExpiryDate",
-                                     [ukdlResult driverNumber], @"driverNumber"
-                                     ];
-            
-            NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObj
-                                                               options:0 // Pass 0 if you don't care about the readability of the generated string
-                                                                 error:&error];
-            NSString *jsonString = @"";
-            
-            if (! jsonData) {
-                NSLog(@"Got an error: %@", error);
-            } else {
-                jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            }
-            
-            __block CDVPluginResult* pluginResult = nil;
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonString];
-            
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
-            */
-       //}
     
     // present the alert view with scanned results
    // UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
