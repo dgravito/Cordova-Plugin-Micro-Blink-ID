@@ -114,7 +114,7 @@
     // To specify we want to perform UKDL (UK Driving license) recognition, initialize the UKDL recognizer settings
     //PPUkdlRecognizerSettings *ukdlRecognizerSettings = [[PPUkdlRecognizerSettings alloc] init];
     
-    //[settings.scanSettings addRecognizerSettings:[[PPUkdlRecognizerSettings alloc] init]];
+    [settings.scanSettings addRecognizerSettings:[[PPUkdlRecognizerSettings alloc] init]];
     
     [settings.scanSettings addRecognizerSettings:[[PPEudlRecognizerSettings alloc] init]];
 
@@ -172,44 +172,7 @@
     // Collect data from the result
     for (PPRecognizerResult* result in results) {
     
-            /** EuDL was detected */
-            PPEudlRecognizerResult* eudlResult = (PPUkdlRecognizerResult*)result;
-            //title = @"UKDL";
-            //message = [ukdlResult description];
-            
-            
-             NSDictionary *jsonObj = [ [NSDictionary alloc]
-                                     initWithObjectsAndKeys :
-                                     [eudlResult ownerFirstName], @"ownerFirstName",
-                                     [eudlResult ownerLastName], @"ownerLastName",
-                                     [eudlResult ownerBirthData], @"ownerBirthData",
-                                     [eudlResult documentIssueDate], @"documentIssueDate",
-                                     [eudlResult documentExpiryDate], @"documentExpiryDate",
-                                     [eudlResult documentIssuingAuthority], @"documentIssuingAuthority",
-                                     [eudlResult personalNumber], @"personalNumber",
-                                     [eudlResult driverNumber], @"driverNumber",
-                                     [eudlResult ownerAddress], @"ownerAddress",
-                                     [eudlResult country], @"country"
-                                     ];
-            
-            NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObj
-                                                               options:0 // Pass 0 if you don't care about the readability of the generated string
-                                                                 error:&error];
-            NSString *jsonString = @"";
-            
-            if (! jsonData) {
-                NSLog(@"Got an error: %@", error);
-            } else {
-                jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            }
-            
-            __block CDVPluginResult* pluginResult = nil;
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonString];
-            
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
-        
-        /*if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
+        //if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
             /** UkDL was detected */
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
             //title = @"UKDL";
@@ -243,7 +206,7 @@
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonString];
             
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
-        }*/
+       // }
     };
     
     // present the alert view with scanned results
