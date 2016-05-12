@@ -175,12 +175,36 @@
         if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
             title = @"UKDL";
-            message = [ukdlResult ownerFirstName];
+            message = [ukdlResult description];
             
-
-            // TODO
-            CDVPluginResult* pluginResult = nil;
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
+            NSDictionary *jsonObj = [ [NSDictionary alloc]
+                                     initWithObjectsAndKeys :
+                                     [ukdlResult ownerFirstName], @"ownerFirstName",
+                                     [ukdlResult ownerLastName], @"ownerLastName",
+                                     [ukdlResult ownerBirthData], @"ownerBirthData",
+                                     [ukdlResult documentIssueDate], @"documentIssueDate",
+                                     [ukdlResult documentExpiryDate], @"documentExpiryDate",
+                                     [ukdlResult documentIssuingAuthority], @"documentIssuingAuthority",
+                                     [ukdlResult personalNumber], @"personalNumber",
+                                     [ukdlResult driverNumber], @"driverNumber",
+                                     [ukdlResult ownerAddress], @"ownerAddress"
+                                     ];
+            
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObj
+                                                               options:0 // Pass 0 if you don't care about the readability of the generated string
+                                                                 error:&error];
+            NSString *jsonString = @"";
+            
+            if (! jsonData) {
+                NSLog(@"Got an error: %@", error);
+            } else {
+                jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            }
+            
+            __block CDVPluginResult* pluginResult = nil;
+            //pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:jsonObj];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonString];
             
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
             
