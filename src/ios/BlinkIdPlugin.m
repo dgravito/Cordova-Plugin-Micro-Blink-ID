@@ -172,18 +172,21 @@
     // Collect data from the result
     for (PPRecognizerResult* result in results) {
         
-        if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
+        //if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
+           // PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
+            //title = @"UKDL";
+            //message = [ukdlResult ownerFirstName];
+            
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
-            title = @"UKDL";
-            message = [ukdlResult ownerFirstName];
+            [self processUkdlResult:ukdlResult scanningViewController:scanningViewController];
 
             // TODO
-            __block CDVPluginResult* pluginResult = nil;
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
+            //CDVPluginResult* pluginResult = nil;
+            //pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
             
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
+            //[self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
             
-        }
+        //}
     };
     
     // present the alert view with scanned results
