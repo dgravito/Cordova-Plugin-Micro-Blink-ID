@@ -20,12 +20,12 @@
 #import "PPMrtdRecognizerSettings.h"
 #import "PPMrtdRecognizerResult.h"
 
-// USDL
-#import "PPUsdlRecognizerSettings.h"
-#import "PPUsdlRecognizerResult.h"
-
 // UKDL
 #import "PPUkdlRecognizerSettings.h"
 #import "PPUkdlRecognizerResult.h"
+
+// EUDL
+#import "PPEudlRecognizerSettings.h"
+#import "PPEudlRecognizerResult.h"
 
 #endif
