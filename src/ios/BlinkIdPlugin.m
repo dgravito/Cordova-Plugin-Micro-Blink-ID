@@ -175,9 +175,8 @@
         if ([result isKindOfClass:[PPUkdlRecognizerResult class]]) {
             PPUkdlRecognizerResult* ukdlResult = (PPUkdlRecognizerResult*)result;
             title = @"UKDL";
-            message = [ukdlResult description];
+            message = [ukdlResult ownerFirstName];
 
-            
             // TODO
             __block CDVPluginResult* pluginResult = nil;
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
