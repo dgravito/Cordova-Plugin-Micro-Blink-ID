@@ -177,6 +177,7 @@
             title = @"UKDL";
             message = [ukdlResult description];
             
+            /*
             NSDictionary *jsonObj = [ [NSDictionary alloc]
                                      initWithObjectsAndKeys :
                                      [ukdlResult ownerFirstName], @"ownerFirstName",
@@ -207,7 +208,7 @@
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonString];
             
             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.commandHelper.callbackId];
-            
+            */
         }
     };
     
